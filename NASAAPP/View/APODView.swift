@@ -12,11 +12,16 @@ struct APODView: View {
     
     //obserbed object to take changes from network manager
     @ObservedObject var networkmanager = NetworkManager()
-    
     @State private var selectedDate = Date()
     @State private var showAlert = false
+    @Environment(\.presentationMode) var presentation
     @Environment(\.managedObjectContext) var managedObjContext
     var body: some View {
+        if networkmanager.isLoading {
+            
+            ProgressView()
+        }
+        else{
         VStack {
             HStack{
                 //date picker to fetch apod data based on date
@@ -24,10 +29,12 @@ struct APODView: View {
                 DatePicker("", selection: $selectedDate,  in: ...Date(),displayedComponents: .date)
                     .onChange(of: selectedDate) { value in
                         self.networkmanager.fetchAPOD(date: value)
-                        }
+                        self.presentation.wrappedValue.dismiss()
+                    }
                     .datePickerStyle(.compact)
                     .labelsHidden()
-               
+                    
+                
                 
                 //add to our favorite list
                 Button(action:{
@@ -38,20 +45,21 @@ struct APODView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .alert(isPresented: $showAlert) {
-                            Alert(title: Text("APOD"), message: Text("Image Added to Favourite"), dismissButton: .default(Text("OK")))
-                                  }
+                    Alert(title: Text("APOD"), message: Text("Image Added to Favourite"), dismissButton: .default(Text("OK")))
+                }
             }.padding(.horizontal)
-
-
+            
+            
             //fetching contents of url to data and to uiimage to display
             
-            if networkmanager.image != nil {
-                Image(uiImage: networkmanager.image!)
-                    .resizable()
-                    .scaledToFit()
-                    
-            }
             
+                if networkmanager.image != nil {
+                    Image(uiImage: networkmanager.image!)
+                        .resizable()
+                        .scaledToFit()
+                    
+                }
+                
                 Text(networkmanager.apod.title)
                     .font(.title)
                     .padding(.leading, 20)
@@ -66,7 +74,7 @@ struct APODView: View {
                         .padding(.bottom, 20)
                 }
             }
-            .navigationBarTitle("APOD")
+        }
             
         }
     }
