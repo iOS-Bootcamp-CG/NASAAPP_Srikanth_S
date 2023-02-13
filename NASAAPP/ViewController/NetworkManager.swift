@@ -51,9 +51,9 @@ class NetworkManager:ObservableObject{
                     //make task asynchronous on main thread
                     DispatchQueue.main.async {
                         self.apod=apod
-                        self.isLoading = false
+                        self.fetchImage(imgurl:apod.url)
                     }
-                    self.fetchImage(imgurl:apod.url)
+                    
                 }
                 catch {
                     print(error)
@@ -73,6 +73,7 @@ class NetworkManager:ObservableObject{
                     if let data = data {
                         DispatchQueue.main.async {
                             self.image = UIImage(data: data)
+                            self.isLoading = false
                         }
                     }
                 }

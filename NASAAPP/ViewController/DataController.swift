@@ -31,13 +31,14 @@ class Datacontroller : ObservableObject{
         
     }
     //adds data to entity
-    func addData(title: String,img:String,image:Data,imgdesc:String,context:NSManagedObjectContext){
+    func addData(title: String,img:String,image:Data,imgdesc:String,imgdate:String,context:NSManagedObjectContext){
         let nasa=Nasa(context: context)
         nasa.imgid=UUID()
         nasa.title=title
         nasa.imageurl=img
         nasa.imgdesc=imgdesc
         nasa.image=image
+        nasa.imgdate=imgdate
         Save(context: context)
         
     }
