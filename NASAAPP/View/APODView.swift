@@ -24,67 +24,65 @@ struct APODView: View {
         }
         else{
             
-        VStack {
-            HStack{
-                //date picker to fetch apod data based on date
-                
-                DatePicker("", selection: $selectedDate,  in: ...Date(),displayedComponents: .date)
-                    .onChange(of: selectedDate) { value in
-                        self.networkmanager.fetchAPOD(date: value)
-                        self.presentation.wrappedValue.dismiss()
-                    }
-                    .datePickerStyle(.compact)
-                    .labelsHidden()
+            VStack {
+                Spacer()
+                HStack{
+                    //date picker to fetch apod data based on date
                     
-                
-                
-                //add to our favorite list
-                Button(action:{
-                    showAlert = true
-                    self.checkapod = checkApod(date: networkmanager.apod.date)
-                    if self.checkapod == false{
-                        Datacontroller().addData(title: networkmanager.apod.title, img:networkmanager.apod.url,image:networkmanager.image!.pngData()!, imgdesc: networkmanager.apod.description,imgdate:networkmanager.apod.date,context: managedObjContext)
-                    }
-                }){
-                    Image(systemName:checkApod(date: networkmanager.apod.date) ? "heart.fill" : "heart")
-
-                }
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .alert(isPresented: $showAlert) {
-                    if self.checkapod == true{
-                        return Alert(title: Text("APOD"), message: Text("Image is already Added to Favourite"), dismissButton: .default(Text("OK")))
-                    }
-                    else{
-                        return Alert(title: Text("APOD"), message: Text("Image Added to Favourite"), dismissButton: .default(Text("OK")))
-                    }
-                }
-            }.padding(.horizontal)
-            
-            
-            //fetching contents of url to data and to uiimage to display
-            
-            
-                if networkmanager.image != nil {
-                    Image(uiImage: networkmanager.image!)
-                        .resizable()
-                        .scaledToFit()
+                    DatePicker("", selection: $selectedDate,  in: ...Date(),displayedComponents: .date)
+                        .onChange(of: selectedDate) { value in
+                            self.networkmanager.fetchAPOD(date: value)
+                            self.presentation.wrappedValue.dismiss()
+                        }
+                        //.datePickerStyle(.compact)
+                        .labelsHidden()
                     
-                }
+                    
+                    
+                    //add to our favorite list
+                    Button(action:{
+                        showAlert = true
+                        self.checkapod = checkApod(date: networkmanager.apod.date)
+                        if self.checkapod == false{
+                            Datacontroller().addData(title: networkmanager.apod.title, img:networkmanager.apod.url,image:networkmanager.image!.pngData()!, imgdesc: networkmanager.apod.description,imgdate:networkmanager.apod.date,context: managedObjContext)
+                        }
+                    }){
+                        Image(systemName:checkApod(date: networkmanager.apod.date) ? "heart.fill" : "heart")
+                        
+                    }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .alert(isPresented: $showAlert) {
+                        if self.checkapod == true{
+                            return Alert(title: Text("APOD"), message: Text("Image is already Added to Favourite"), dismissButton: .default(Text("OK")))
+                        }
+                        else{
+                            return Alert(title: Text("APOD"), message: Text("Image Added to Favourite"), dismissButton: .default(Text("OK")))
+                        }
+                    }
+                }.padding(.horizontal)
                 
                 
-                Text(networkmanager.apod.title)
-                    .font(.title)
-                    .padding(.leading, 20)
-                    .padding(.trailing, 20)
+                //fetching contents of url to data and to uiimage to display
                 
-                ScrollView{
-                    Text(networkmanager.apod.description)
-                        .font(.subheadline)
-                        .lineLimit(nil)
+                    if networkmanager.image != nil {
+                        Image(uiImage: networkmanager.image!)
+                            .resizable()
+                            .scaledToFit()
+                    }
+                    
+                    Text(networkmanager.apod.title)
+                        .font(.title)
                         .padding(.leading, 20)
                         .padding(.trailing, 20)
-                        .padding(.bottom, 20)
-                }
+                    
+                    ScrollView{
+                        Text(networkmanager.apod.description)
+                            .font(.subheadline)
+                            .lineLimit(nil)
+                            .padding(.leading, 20)
+                            .padding(.trailing, 20)
+                            .padding(.bottom, 20)
+                    }
             }
         }
             

@@ -18,9 +18,8 @@ struct DetailedFavouriteView: View {
                     //display details by matching parameter
                     if (nasa.imgid == number){
                             Image(uiImage: UIImage(data: nasa.image ?? Data()) ?? UIImage())
-                                .frame(width: 350,height: 200,alignment: .center )
-                                .aspectRatio(contentMode: .fill)
-                                .clipped()
+                            .resizable()
+                            .scaledToFit()
                         Text(nasa.title ?? "Alt")
                             .font(.title)
                             .padding(.leading, 20)
