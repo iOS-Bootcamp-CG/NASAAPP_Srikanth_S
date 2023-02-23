@@ -19,19 +19,20 @@ struct FavouriteView: View {
                 List{
                     ForEach(nasa) { nasa in
                         HStack {
-                            VStack(alignment: .center){
+                            VStack(){
                                 //to navigate to detailedfavouriteview by passing imgid as parameter
-                                NavigationLink(destination: DetailedFavouriteView(number: nasa.imgid!)) {
-                                    Image(uiImage: UIImage(data: nasa.image ?? Data()) ?? UIImage())
-                                        .frame(width: 350,height: 200,alignment: .center )
-                                        .aspectRatio(contentMode: .fill)
-                                        .clipped()
-                                }
+                                if let imgid = nasa.imgid{
+                                    NavigationLink(destination: DetailedFavouriteView(number: imgid))
+                                    {
+                                        Image(uiImage: UIImage(data: nasa.image ?? Data()) ?? UIImage())
+                                            .frame(width: 350,height: 200,alignment: .center )
+                                            .clipped()
+                                    }
                                     Text(nasa.title ?? "Alt")
+                                    
+                                }
                                 
                             }
-                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                            
                         }
                     }
                     .onDelete(perform: deleteData)

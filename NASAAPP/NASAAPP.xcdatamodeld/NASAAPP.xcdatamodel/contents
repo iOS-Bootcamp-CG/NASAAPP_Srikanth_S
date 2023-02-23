@@ -6,6 +6,7 @@
     <entity name="Nasa" representedClassName="Nasa" syncable="YES" codeGenerationType="class">
         <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="imageurl" optional="YES" attributeType="String"/>
+        <attribute name="imgdate" optional="YES" attributeType="String"/>
         <attribute name="imgdesc" optional="YES" attributeType="String"/>
         <attribute name="imgid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>

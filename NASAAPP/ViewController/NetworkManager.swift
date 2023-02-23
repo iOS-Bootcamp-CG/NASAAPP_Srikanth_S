@@ -14,13 +14,14 @@ class NetworkManager:ObservableObject{
     //update this property automatically when changes take place
     @Published var apod:APODModel=APODModel()
     @Published var image:UIImage? = nil
+    @Published var isLoading = false
     init(){
         fetchAPOD()
     }
     
     //fetch data from api
     func fetchAPOD(date : Date? = nil) {
-        
+        self.isLoading = true
         var url : URL?
         
         //if date is nil calls normal api else api with date
@@ -50,8 +51,9 @@ class NetworkManager:ObservableObject{
                     //make task asynchronous on main thread
                     DispatchQueue.main.async {
                         self.apod=apod
+                        self.fetchImage(imgurl:apod.url)
                     }
-                    self.fetchImage(imgurl:apod.url)
+                    
                 }
                 catch {
                     print(error)
@@ -71,6 +73,7 @@ class NetworkManager:ObservableObject{
                     if let data = data {
                         DispatchQueue.main.async {
                             self.image = UIImage(data: data)
+                            self.isLoading = false
                         }
                     }
                 }
