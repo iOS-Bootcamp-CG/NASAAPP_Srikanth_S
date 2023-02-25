@@ -17,7 +17,7 @@ class Datacontroller : ObservableObject{
         container.loadPersistentStores{desc, error in
             if let error = error{
                 print("failed to load data \(error.localizedDescription)")
-                
+
             }}
     }
     //saves changes happened in persistant store

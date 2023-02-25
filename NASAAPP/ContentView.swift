@@ -30,7 +30,7 @@ struct ContentView: View {
                     .tabItem {
                         Image(systemName: "heart.fill")
                             .foregroundColor(.red)
-                        Text("fav")
+                        Text("Favourite")
                     }
                 
             //check for dark mode and change background accordingly
