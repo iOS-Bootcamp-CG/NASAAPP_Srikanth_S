@@ -28,7 +28,7 @@ struct FavouriteView: View {
                                             .frame(width: 350,height: 200,alignment: .center )
                                             .clipped()
                                     }
-                                    Text(nasa.title ?? "Alt")
+                                    Text(nasa.title ?? "title")
                                     
                                 }
                                 

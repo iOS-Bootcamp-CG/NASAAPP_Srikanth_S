@@ -53,10 +53,10 @@ struct APODView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .alert(isPresented: $showAlert) {
                         if self.checkapod == true{
-                            return Alert(title: Text("Alert"), message: Text("Image is already Added to Favourite"), dismissButton: .default(Text("OK")))
+                            return Alert(title: Text("Alert!"), message: Text("Image is already Added to Favourite"), dismissButton: .default(Text("OK")))
                         }
                         else{
-                            return Alert(title: Text("Alert"), message: Text("Image Added to Favourite"), dismissButton: .default(Text("OK")))
+                            return Alert(title: Text("Alert!"), message: Text("Image Added to Favourite"), dismissButton: .default(Text("OK")))
                         }
                     }
                 }.padding(.horizontal)
